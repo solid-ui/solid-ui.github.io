@@ -469,13 +469,63 @@ export function renderEditable(container, form, store, subject) {
 
 const _forms = new Map()  // targetClass → form definition
 
-export function registerForm(targetClass, form) { _forms.set(targetClass, form) }
+export function registerForm(targetClass, form) {
+  _forms.set(targetClass, form)
+  // Also index a urn:solid:* alias for bare/non-prefixed types so a form
+  // registered as 'Person' matches incoming 'urn:solid:Person' and vice versa.
+  if (targetClass.startsWith('urn:solid:')) {
+    _forms.set(targetClass.slice('urn:solid:'.length), form)
+  } else if (!/^[a-z]+:/.test(targetClass)) {
+    _forms.set('urn:solid:' + targetClass, form)
+  }
+}
 
 export function canHandle(subject, store) { return _forms.has(store.type(subject)) }
 
 export function render(subject, store, container) {
   const form = _forms.get(store.type(subject))
-  if (form) renderForm(container, form, store, subject)
+  if (form) renderEditable(container, form, store, subject)
+}
+
+// --- Auto-register forms from solid-ui.github.io for every @type on the page ---
+// Runs at module load via top-level await; LOSOS's loadPanes awaits the import
+// so by the time canHandle is consulted, forms are populated.
+
+const FORMS_BASE = 'https://solid-ui.github.io/'
+
+async function autoRegisterFromPage() {
+  if (typeof document === 'undefined') return
+  const types = new Set()
+  for (const el of document.querySelectorAll('script[type="application/ld+json"]')) {
+    try {
+      const txt = el.textContent && el.textContent.trim()
+      if (!txt) continue
+      const data = JSON.parse(txt)
+      const t = data && data['@type']
+      if (typeof t === 'string') types.add(t)
+      else if (Array.isArray(t)) for (const x of t) if (typeof x === 'string') types.add(x)
+    } catch {}
+  }
+  await Promise.all([...types].map(async (type) => {
+    const short = type.replace(/^urn:solid:/, '').replace(/^[a-z]+:/, '').replace(/^.*[#/]/, '')
+    if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(short)) return
+    try {
+      const res = await fetch(FORMS_BASE + short + '/index.json')
+      if (!res.ok) return
+      const form = await res.json()
+      registerForm(type, form)
+    } catch {}
+  }))
+}
+
+await autoRegisterFromPage()
+
+// LOSOS default-export shape — picked up by `<script data-pane src=...>`
+export default {
+  label: 'Inline',
+  icon: '\u270F\uFE0F',
+  canHandle,
+  render
 }
 
 // --- Styles ---
