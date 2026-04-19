@@ -262,6 +262,47 @@ function link(href, label, external) {
   return a
 }
 
+function niceLabel(s) {
+  if (!s) return ''
+  return String(s).replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
+}
+
+// Render one item of an array property as a chip. Strings → plain text or link
+// (when URL); objects → name/title/label or a nice form of @id, linked when an
+// @id/url/homepage is present.
+function renderChip(item, field) {
+  const chip = document.createElement('span')
+  chip.className = 'ui-chip'
+  if (typeof item === 'string') {
+    if (/^https?:\/\//.test(item) || field?.type === 'ui:NamedNodeURIField') {
+      chip.appendChild(link(item, niceLabel(item), true))
+    } else {
+      chip.textContent = item
+    }
+  } else if (item && typeof item === 'object') {
+    const label = item.name || item.title || item.label || niceLabel(item['@id']) || JSON.stringify(item)
+    const href = item['@id'] || item.url || item.homepage
+    if (href) chip.appendChild(link(href, label, true))
+    else chip.textContent = label
+  } else {
+    chip.textContent = String(item)
+  }
+  return chip
+}
+
+// Display dispatcher: arrays become a row of chips; scalars go through
+// FORMATTERS (or plain text) as before.
+function renderValue(v, field) {
+  if (Array.isArray(v)) {
+    const wrap = document.createElement('span')
+    wrap.className = 'ui-chips'
+    for (const item of v) wrap.appendChild(renderChip(item, field))
+    return wrap
+  }
+  const fmt = FORMATTERS[field.type]
+  return fmt ? fmt(v, field) : text(v)
+}
+
 function initials(name) {
   return String(name).trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()
 }
@@ -313,8 +354,7 @@ export function renderView(container, form, store, subject) {
     const dt = document.createElement('dt')
     dt.textContent = field.label || ''
     const dd = document.createElement('dd')
-    const fmt = FORMATTERS[field.type]
-    dd.appendChild(fmt ? fmt(v, field) : text(v))
+    dd.appendChild(renderValue(v, field))
     dl.appendChild(dt)
     dl.appendChild(dd)
   }
@@ -346,8 +386,7 @@ function editableField(field, getValue, onChange) {
       empty.textContent = field.placeholder || '—'
       wrap.appendChild(empty)
     } else {
-      const fmt = FORMATTERS[field.type]
-      const el = fmt ? fmt(v, field) : text(v)
+      const el = renderValue(v, field)
       if (el.tagName === 'A') el.addEventListener('click', (e) => e.preventDefault())
       wrap.appendChild(el)
     }
@@ -375,8 +414,10 @@ function editableField(field, getValue, onChange) {
     })
   }
 
-  wrap.addEventListener('click', (e) => { if (!editing) showEdit() })
-  wrap.addEventListener('focus', () => { if (!editing) showEdit() })
+  // Arrays don't have a sensible single-input editor — display only for now.
+  const isArrayValued = () => Array.isArray(getValue(field.property))
+  wrap.addEventListener('click', (e) => { if (!editing && !isArrayValued()) showEdit() })
+  wrap.addEventListener('focus', () => { if (!editing && !isArrayValued()) showEdit() })
 
   showView()
   return wrap
@@ -637,6 +678,17 @@ function injectStyles() {
   box-shadow: 0 0 0 2px #06c3; min-width: 4ch; }
 .ui-editable.editing textarea { width: 100%; resize: vertical; }
 .ui-empty { color: #aaa; font-style: italic; }
+
+.ui-chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.ui-chip {
+  display: inline-flex; align-items: center;
+  padding: 2px 9px; border-radius: 999px;
+  background: #f0f4f8; border: 1px solid #e0e6ec;
+  font-size: .85rem; color: #345; line-height: 1.4;
+  max-width: 100%; word-break: break-all;
+}
+.ui-chip a { color: inherit; text-decoration: none; }
+.ui-chip a:hover { color: #06c; }
 
 .ui-heading-inline { margin: 0 0 .25rem; font-size: 1.4rem; font-weight: 600; }
 .ui-heading-inline .ui-editable { padding: 0 4px; margin: 0 -4px; }
