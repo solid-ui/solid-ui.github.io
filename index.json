@@ -1,4 +1,11 @@
 {
+  "AddressBook": {
+    "term": "urn:solid:AddressBook",
+    "label": "AddressBook",
+    "description": "A collection of contacts — a personal or shared address book.",
+    "parts": 4,
+    "form": "/AddressBook/index.json"
+  },
   "Article": {
     "term": "urn:solid:Article",
     "label": "Article",

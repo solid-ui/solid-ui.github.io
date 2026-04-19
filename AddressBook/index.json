@@ -1,0 +1,48 @@
+{
+  "targetClass": "urn:solid:AddressBook",
+  "label": "AddressBook",
+  "description": "A collection of contacts — a personal or shared address book.",
+  "view": {
+    "heading": "title",
+    "subheading": "description",
+    "avatar": true
+  },
+  "parts": [
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "title",
+      "property": "title",
+      "required": true,
+      "maxLength": 200,
+      "minLength": 1,
+      "description": "Display name of the address book."
+    },
+    {
+      "type": "ui:MultiLineTextField",
+      "label": "description",
+      "property": "description",
+      "maxLength": 2000,
+      "description": "Free-text notes about this address book."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "hasMember",
+      "property": "hasMember",
+      "description": "The contacts in this address book — typically Person references."
+    },
+    {
+      "type": "ui:DateTimeField",
+      "label": "created",
+      "property": "created",
+      "description": "ISO-8601 datetime the address book was created."
+    }
+  ],
+  "x-urn-solid": {
+    "term": "urn:solid:AddressBook",
+    "termRegistry": "https://urn-solid.github.io/AddressBook/",
+    "schemaSource": "https://solid-schema.github.io/AddressBook/index.json",
+    "derivedFrom": "JSON Schema 2020-12",
+    "status": "stable",
+    "added": "2026-04-19"
+  }
+}
