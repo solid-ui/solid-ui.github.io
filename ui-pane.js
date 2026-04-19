@@ -480,11 +480,57 @@ export function registerForm(targetClass, form) {
   }
 }
 
-export function canHandle(subject, store) { return _forms.has(store.type(subject)) }
+function typeOf(subject, store) {
+  // LOSOS panes idiomatically: store.get(subject.value) → store.type(node)
+  const id = (subject && typeof subject === 'object') ? subject.value : subject
+  const node = store.get(id)
+  return store.type(node)
+}
+
+export function canHandle(subject, store) {
+  return _forms.has(typeOf(subject, store))
+}
+
+// Tiny store adapter: reads from the inline JSON-LD data island, writes back via
+// debounced PUT. Uses window.xlogin.authFetch when available, plain fetch otherwise.
+// The form's `property` keys are bare (matching the JSON-LD source under @vocab),
+// so adapter just does node[propName] read/write.
+function makeDataAdapter() {
+  const dataEl = document.querySelector('script[type="application/ld+json"]')
+  if (!dataEl) return null
+  let data
+  try { data = JSON.parse(dataEl.textContent || '{}') } catch { return null }
+  const src = dataEl.getAttribute('src')
+  const dataUrl = src ? new URL(src, window.location.href).href : null
+  let saveTimer
+  const save = () => {
+    if (!dataUrl) return
+    clearTimeout(saveTimer)
+    saveTimer = setTimeout(async () => {
+      const body = JSON.stringify(data, null, 2)
+      const fetcher = (typeof window !== 'undefined' && window.xlogin && window.xlogin.authFetch) || fetch
+      try { await fetcher(dataUrl, { method: 'PUT', headers: { 'Content-Type': 'application/ld+json' }, body }) }
+      catch (e) { console.warn('[ui-pane] PUT failed:', e) }
+    }, 800)
+  }
+  return {
+    root: data,
+    prop: (_subj, p) => data[p] ?? '',
+    set:  (_subj, p, v) => { if (v === '' || v == null) delete data[p]; else data[p] = v; save() }
+  }
+}
 
 export function render(subject, store, container) {
-  const form = _forms.get(store.type(subject))
-  if (form) renderEditable(container, form, store, subject)
+  const form = _forms.get(typeOf(subject, store))
+  if (!form) return
+  const adapter = makeDataAdapter()
+  if (!adapter) { container.textContent = 'No data island found.'; return }
+  try {
+    renderEditable(container, form, adapter, adapter.root)
+  } catch (e) {
+    console.error('[ui-pane] renderEditable threw:', e)
+    container.innerHTML = '<pre style="color:#c44;padding:1em;white-space:pre-wrap">' + e.stack + '</pre>'
+  }
 }
 
 // --- Auto-register forms from solid-ui.github.io for every @type on the page ---
@@ -512,8 +558,7 @@ async function autoRegisterFromPage() {
     try {
       const res = await fetch(FORMS_BASE + short + '/index.json')
       if (!res.ok) return
-      const form = await res.json()
-      registerForm(type, form)
+      registerForm(type, await res.json())
     } catch {}
   }))
 }

@@ -98,7 +98,7 @@ function schemaToForm(schema, name) {
     const part = {
       type: widgetTypeFor(key, p),
       label: p.title || key,
-      property: "urn:solid:" + key
+      property: key
     };
     if (required.has(key)) part.required = true;
     if (typeof p.maxLength === "number") part.maxLength = p.maxLength;
@@ -117,13 +117,9 @@ function schemaToForm(schema, name) {
     label: schema.title || name,
     description: schema.description || "",
     view: {
-      heading: headingKey ? "urn:solid:" + headingKey : null,
-      subheading: subheadingKey ? "urn:solid:" + subheadingKey : null,
-      avatar: (() => {
-        const a = pickAvatar(schema);
-        if (typeof a === "object" && a.from) return { ...a, from: "urn:solid:" + a.from };
-        return a;
-      })()
+      heading: headingKey,
+      subheading: subheadingKey,
+      avatar: pickAvatar(schema)
     },
     parts,
     "x-urn-solid": {

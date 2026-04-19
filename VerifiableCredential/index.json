@@ -3,66 +3,66 @@
   "label": "VerifiableCredential",
   "description": "A W3C Verifiable Credential — a tamper-evident, cryptographically-signed claim made by an issuer about a subject.",
   "view": {
-    "heading": "urn:solid:issuanceDate",
-    "subheading": "urn:solid:validFrom",
+    "heading": "issuanceDate",
+    "subheading": "validFrom",
     "avatar": true
   },
   "parts": [
     {
       "type": "ui:SingleLineTextField",
       "label": "issuer",
-      "property": "urn:solid:issuer",
+      "property": "issuer",
       "required": true,
       "description": "The party that issued the credential. Either an IRI or an Object with @id and optional metadata."
     },
     {
       "type": "ui:DateTimeField",
       "label": "issuanceDate",
-      "property": "urn:solid:issuanceDate",
+      "property": "issuanceDate",
       "description": "When the credential was issued (ISO 8601). VC 1.x."
     },
     {
       "type": "ui:DateTimeField",
       "label": "validFrom",
-      "property": "urn:solid:validFrom",
+      "property": "validFrom",
       "description": "When the credential becomes valid (ISO 8601). VC 2.0 alternative to issuanceDate."
     },
     {
       "type": "ui:DateTimeField",
       "label": "expirationDate",
-      "property": "urn:solid:expirationDate",
+      "property": "expirationDate",
       "description": "When the credential expires (ISO 8601). VC 1.x."
     },
     {
       "type": "ui:DateTimeField",
       "label": "validUntil",
-      "property": "urn:solid:validUntil",
+      "property": "validUntil",
       "description": "When the credential ceases to be valid (ISO 8601). VC 2.0 alternative to expirationDate."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "credentialSubject",
-      "property": "urn:solid:credentialSubject",
+      "property": "credentialSubject",
       "required": true,
       "description": "The entity the credential makes claims about. Object (one subject) or array (many subjects). Each carries @id and arbitrary claim properties."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "credentialStatus",
-      "property": "urn:solid:credentialStatus",
+      "property": "credentialStatus",
       "description": "Reference to a status mechanism (revocation list, status list)."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "proof",
-      "property": "urn:solid:proof",
+      "property": "proof",
       "description": "Cryptographic proof — issuer signature. Object (one proof) or array (multiple proofs)."
     }
   ],
   "x-urn-solid": {
     "term": "urn:solid:VerifiableCredential",
     "termRegistry": "https://urn-solid.github.io/VerifiableCredential/",
-    "schemaSource": "https://solid-schema.github.io/VerifiableCredential/index.json",
+    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/VerifiableCredential/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"

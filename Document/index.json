@@ -3,67 +3,67 @@
   "label": "Document",
   "description": "A generic document — a self-contained piece of content with a title, body, and metadata. Spans foaf:Document, schema:CreativeWork, and as:Document.",
   "view": {
-    "heading": "urn:solid:name",
-    "subheading": "urn:solid:attributedTo",
+    "heading": "name",
+    "subheading": "attributedTo",
     "avatar": {
       "type": "favicon",
-      "from": "urn:solid:url"
+      "from": "url"
     }
   },
   "parts": [
     {
       "type": "ui:SingleLineTextField",
       "label": "name",
-      "property": "urn:solid:name",
+      "property": "name",
       "minLength": 1,
       "description": "The Document's title."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "content",
-      "property": "urn:solid:content",
+      "property": "content",
       "description": "The Document's body — plain text or HTML."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "summary",
-      "property": "urn:solid:summary",
+      "property": "summary",
       "description": "A short summary or excerpt."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "mediaType",
-      "property": "urn:solid:mediaType",
+      "property": "mediaType",
       "pattern": "^[a-zA-Z0-9!#$&\\-^_+.]+/[a-zA-Z0-9!#$&\\-^_+.]+$",
       "description": "MIME type of the content (text/html, text/markdown, application/pdf, …)."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "attributedTo",
-      "property": "urn:solid:attributedTo",
+      "property": "attributedTo",
       "description": "The Person or Actor who authored the Document."
     },
     {
       "type": "ui:DateTimeField",
       "label": "published",
-      "property": "urn:solid:published"
+      "property": "published"
     },
     {
       "type": "ui:DateTimeField",
       "label": "updated",
-      "property": "urn:solid:updated"
+      "property": "updated"
     },
     {
       "type": "ui:NamedNodeURIField",
       "label": "url",
-      "property": "urn:solid:url",
+      "property": "url",
       "description": "Canonical web URL."
     }
   ],
   "x-urn-solid": {
     "term": "urn:solid:Document",
     "termRegistry": "https://urn-solid.github.io/Document/",
-    "schemaSource": "https://solid-schema.github.io/Document/index.json",
+    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/Document/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"

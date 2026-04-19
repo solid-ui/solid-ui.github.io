@@ -3,18 +3,18 @@
   "label": "Person",
   "description": "A human person — schema for data typed as urn:solid:Person.",
   "view": {
-    "heading": "urn:solid:name",
-    "subheading": "urn:solid:nick",
+    "heading": "name",
+    "subheading": "nick",
     "avatar": {
       "type": "image",
-      "from": "urn:solid:img"
+      "from": "img"
     }
   },
   "parts": [
     {
       "type": "ui:SingleLineTextField",
       "label": "name",
-      "property": "urn:solid:name",
+      "property": "name",
       "maxLength": 200,
       "minLength": 1,
       "description": "The Person's full display name."
@@ -22,39 +22,39 @@
     {
       "type": "ui:SingleLineTextField",
       "label": "nick",
-      "property": "urn:solid:nick",
+      "property": "nick",
       "maxLength": 50,
       "description": "A short nickname or handle."
     },
     {
       "type": "ui:EmailField",
       "label": "email",
-      "property": "urn:solid:email",
+      "property": "email",
       "description": "An email address."
     },
     {
       "type": "ui:NamedNodeURIField",
       "label": "homepage",
-      "property": "urn:solid:homepage",
+      "property": "homepage",
       "description": "URL of the Person's primary website."
     },
     {
       "type": "ui:NamedNodeURIField",
       "label": "img",
-      "property": "urn:solid:img",
+      "property": "img",
       "description": "URL of an image of the Person."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "knows",
-      "property": "urn:solid:knows",
+      "property": "knows",
       "description": "Other People this Person knows. Each entry is a WebID URI."
     }
   ],
   "x-urn-solid": {
     "term": "urn:solid:Person",
     "termRegistry": "https://urn-solid.github.io/Person/",
-    "schemaSource": "https://solid-schema.github.io/Person/index.json",
+    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/Person/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"

@@ -3,15 +3,15 @@
   "label": "Tracker",
   "description": "A container for tracking work items — typically a list of iCalendar Vtodos. The list-level counterpart to single-task Vtodo.",
   "view": {
-    "heading": "urn:solid:title",
-    "subheading": "urn:solid:created",
+    "heading": "title",
+    "subheading": "created",
     "avatar": true
   },
   "parts": [
     {
       "type": "ui:SingleLineTextField",
       "label": "title",
-      "property": "urn:solid:title",
+      "property": "title",
       "maxLength": 200,
       "minLength": 1,
       "description": "The Tracker's display name (e.g. \"Today\", \"Backlog\")."
@@ -19,19 +19,19 @@
     {
       "type": "ui:DateTimeField",
       "label": "created",
-      "property": "urn:solid:created",
+      "property": "created",
       "description": "When the Tracker was created (ISO 8601)."
     },
     {
       "type": "ui:DateTimeField",
       "label": "modified",
-      "property": "urn:solid:modified",
+      "property": "modified",
       "description": "When the Tracker was most recently updated (ISO 8601)."
     },
     {
       "type": "ui:Choice",
       "label": "initialState",
-      "property": "urn:solid:initialState",
+      "property": "initialState",
       "description": "iCalendar status assigned to newly-created Vtodos in this Tracker (default: NEEDS-ACTION).",
       "options": [
         {
@@ -55,14 +55,14 @@
     {
       "type": "ui:SingleLineTextField",
       "label": "issue",
-      "property": "urn:solid:issue",
+      "property": "issue",
       "description": "The Vtodos this Tracker contains. Each entry is a Vtodo (inline) or a reference (string/object @id)."
     }
   ],
   "x-urn-solid": {
     "term": "urn:solid:Tracker",
     "termRegistry": "https://urn-solid.github.io/Tracker/",
-    "schemaSource": "https://solid-schema.github.io/Tracker/index.json",
+    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/Tracker/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"

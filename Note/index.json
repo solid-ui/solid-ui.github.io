@@ -3,15 +3,15 @@
   "label": "Note",
   "description": "A short text post — the fediverse-canonical Note.",
   "view": {
-    "heading": "urn:solid:summary",
-    "subheading": "urn:solid:attributedTo",
+    "heading": "summary",
+    "subheading": "attributedTo",
     "avatar": true
   },
   "parts": [
     {
       "type": "ui:SingleLineTextField",
       "label": "content",
-      "property": "urn:solid:content",
+      "property": "content",
       "required": true,
       "minLength": 1,
       "description": "The note text. May contain HTML in fediverse usage."
@@ -19,44 +19,44 @@
     {
       "type": "ui:SingleLineTextField",
       "label": "summary",
-      "property": "urn:solid:summary",
+      "property": "summary",
       "description": "Optional short summary or content warning."
     },
     {
       "type": "ui:DateTimeField",
       "label": "published",
-      "property": "urn:solid:published",
+      "property": "published",
       "description": "ISO-8601 datetime the note was published."
     },
     {
       "type": "ui:DateTimeField",
       "label": "updated",
-      "property": "urn:solid:updated",
+      "property": "updated",
       "description": "ISO-8601 datetime of the most recent edit."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "attributedTo",
-      "property": "urn:solid:attributedTo",
+      "property": "attributedTo",
       "description": "The author — Person or Actor reference."
     },
     {
       "type": "ui:NamedNodeURIField",
       "label": "inReplyTo",
-      "property": "urn:solid:inReplyTo",
+      "property": "inReplyTo",
       "description": "Optional reference to the Note this is a reply to."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "to",
-      "property": "urn:solid:to",
+      "property": "to",
       "description": "Audience the note is addressed to (often urn:solid:Public for public posts)."
     }
   ],
   "x-urn-solid": {
     "term": "urn:solid:Note",
     "termRegistry": "https://urn-solid.github.io/Note/",
-    "schemaSource": "https://solid-schema.github.io/Note/index.json",
+    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/Note/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"

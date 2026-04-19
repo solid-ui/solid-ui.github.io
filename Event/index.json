@@ -3,18 +3,18 @@
   "label": "Event",
   "description": "A scheduled occurrence with a start (and usually end) time. Aligns with as:Event, schema:Event, and ical:Vevent at the term level.",
   "view": {
-    "heading": "urn:solid:name",
-    "subheading": "urn:solid:attributedTo",
+    "heading": "name",
+    "subheading": "attributedTo",
     "avatar": {
       "type": "favicon",
-      "from": "urn:solid:url"
+      "from": "url"
     }
   },
   "parts": [
     {
       "type": "ui:SingleLineTextField",
       "label": "name",
-      "property": "urn:solid:name",
+      "property": "name",
       "required": true,
       "maxLength": 200,
       "minLength": 1,
@@ -23,44 +23,44 @@
     {
       "type": "ui:SingleLineTextField",
       "label": "summary",
-      "property": "urn:solid:summary",
+      "property": "summary",
       "description": "A short summary or description of the Event."
     },
     {
       "type": "ui:DateTimeField",
       "label": "startTime",
-      "property": "urn:solid:startTime",
+      "property": "startTime",
       "description": "When the Event begins (ISO 8601)."
     },
     {
       "type": "ui:DateTimeField",
       "label": "endTime",
-      "property": "urn:solid:endTime",
+      "property": "endTime",
       "description": "When the Event ends (ISO 8601)."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "location",
-      "property": "urn:solid:location",
+      "property": "location",
       "description": "Where the Event takes place — a Place reference (URI) or a free-text string."
     },
     {
       "type": "ui:SingleLineTextField",
       "label": "attributedTo",
-      "property": "urn:solid:attributedTo",
+      "property": "attributedTo",
       "description": "The Person or Actor responsible for the Event."
     },
     {
       "type": "ui:NamedNodeURIField",
       "label": "url",
-      "property": "urn:solid:url",
+      "property": "url",
       "description": "A canonical web URL for the Event (often distinct from @id for fediverse content)."
     }
   ],
   "x-urn-solid": {
     "term": "urn:solid:Event",
     "termRegistry": "https://urn-solid.github.io/Event/",
-    "schemaSource": "https://solid-schema.github.io/Event/index.json",
+    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/Event/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"
