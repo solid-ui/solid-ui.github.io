@@ -6,6 +6,13 @@
     "parts": 9,
     "form": "/Article/index.json"
   },
+  "Bookmark": {
+    "term": "urn:solid:Bookmark",
+    "label": "Bookmark",
+    "description": "A saved reference to a web resource — title, URL, optional tags and notes.",
+    "parts": 6,
+    "form": "/Bookmark/index.json"
+  },
   "Document": {
     "term": "urn:solid:Document",
     "label": "Document",
