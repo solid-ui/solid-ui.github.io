@@ -1,0 +1,42 @@
+body { margin: 2rem auto; max-width: 1280px; padding: 0 1rem;
+  font-family: system-ui, -apple-system, sans-serif; color: #222; }
+header { margin-bottom: 1.25rem; }
+header a.back { color: #06c; text-decoration: none; font-size: .85rem; }
+header a.back:hover { text-decoration: underline; }
+header .title-row { display: flex; align-items: center; gap: .75rem;
+  margin: .25rem 0 .5rem; }
+header .logo { width: 32px; height: 32px; flex-shrink: 0; }
+header h1 { font-size: 1.4rem; margin: 0; }
+header .sub { color: #666; font-size: .9rem; margin: 0; max-width: 720px; }
+header .sub a { color: #06c; }
+
+.layout { display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem; margin-top: 1.25rem; }
+@media (max-width: 960px) { .layout { grid-template-columns: 1fr; } }
+
+.panel { display: flex; flex-direction: column; min-width: 0; }
+.panel h3 { font-size: .75rem; color: #888; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em; margin: 0 0 .6rem; }
+
+.hero { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px;
+  padding: 1.75rem 2rem; margin-top: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04); position: relative; }
+.hero .edit-btn { position: absolute; top: 1rem; right: 1rem;
+  background: #fff; border: 1px solid #ddd; border-radius: 6px;
+  padding: .35rem .85rem; font-size: .85rem; cursor: pointer;
+  color: #555; font-family: inherit; }
+.hero .edit-btn:hover { border-color: #06c; color: #06c; }
+.hero .edit-btn.done { background: #06c; border-color: #06c; color: #fff; }
+.hero .edit-btn.done:hover { background: #05a; border-color: #05a; color: #fff; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+@media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
+
+.code-view, .data-view {
+  background: #fafafa; border: 1px solid #e5e5e5; border-radius: 6px;
+  padding: .9rem 1rem; font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: .78rem; line-height: 1.55; color: #333;
+  margin: 0; overflow: auto; min-height: 240px; flex: 1;
+}
+.code-view { white-space: pre; }
+.data-view { white-space: pre-wrap; word-break: break-word; }

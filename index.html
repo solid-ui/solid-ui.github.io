@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LOSOS Pane Demos — Form Generation</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #222;
+      background: #fafafa; line-height: 1.5; }
+    main { max-width: 780px; margin: 0 auto; padding: 3rem 1.5rem; }
+    header { margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+    header .logo { width: 56px; height: 56px; flex-shrink: 0; }
+    header .text { flex: 1; }
+    h1 { font-size: 1.8rem; margin: 0 0 .25rem; font-weight: 600; }
+    .tagline { color: #666; font-size: 1rem; margin: 0; }
+    h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: .05em;
+      color: #666; font-weight: 500; margin: 2.5rem 0 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem; }
+    a.card { display: block; padding: 1.25rem; background: #fff;
+      border: 1px solid #e5e5e5; border-radius: 8px;
+      text-decoration: none; color: inherit; transition: all .15s ease; }
+    a.card:hover { border-color: #06c; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      transform: translateY(-1px); }
+    a.card h3 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 600; }
+    a.card p { margin: 0; color: #666; font-size: .85rem; }
+    .badge { display: inline-block; font-size: .7rem; padding: 2px 8px;
+      border-radius: 10px; margin-left: .5rem; font-weight: 500;
+      vertical-align: middle; }
+    .badge-ui { background: #e8f4fd; color: #06c; }
+    .badge-shacl { background: #fef3e8; color: #c60; }
+    .badge-soon { background: #f0f0f0; color: #888; }
+    .soon { opacity: .55; cursor: not-allowed; }
+    .soon:hover { transform: none; box-shadow: none; border-color: #e5e5e5; }
+    .about { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px;
+      padding: 1.25rem 1.5rem; margin-top: 2rem; }
+    .about p { margin: 0 0 .5rem; font-size: .9rem; color: #444; }
+    .about p:last-child { margin-bottom: 0; }
+    .about code { background: #f5f5f5; padding: 1px 5px; border-radius: 3px;
+      font-size: .85em; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee;
+      color: #999; font-size: .8rem; }
+    footer a { color: #06c; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <img class="logo" src="assets/solid-emblem.svg" alt="Solid">
+      <div class="text">
+        <h1>Solid Pane Demos</h1>
+        <p class="tagline">Auto-generated RDF forms. Two vocabularies, one pane-per-type pattern.</p>
+      </div>
+    </header>
+
+    <h2>UI Ontology</h2>
+    <div class="grid">
+      <a class="card" href="demos/profile.html">
+        <h3>Profile Card <span class="badge badge-ui">ui:</span></h3>
+        <p>schema:Person — text, email, phone, date, bio, choice field</p>
+      </a>
+      <a class="card" href="demos/bookmark.html">
+        <h3>Bookmark <span class="badge badge-ui">ui:</span></h3>
+        <p>bookm:Bookmark — URL field, tags, visibility choice</p>
+      </a>
+      <a class="card soon" aria-disabled="true">
+        <h3>Contact <span class="badge badge-soon">soon</span></h3>
+        <p>vcard:Individual — SolidOS-compatible address book</p>
+      </a>
+      <a class="card soon" aria-disabled="true">
+        <h3>Event <span class="badge badge-soon">soon</span></h3>
+        <p>schema:Event — dates, nested location group</p>
+      </a>
+      <a class="card soon" aria-disabled="true">
+        <h3>Task <span class="badge badge-soon">soon</span></h3>
+        <p>Custom task type — checkboxes, priority, due date</p>
+      </a>
+    </div>
+
+    <h2>SHACL</h2>
+    <div class="grid">
+      <a class="card" href="demos/shacl-form.html">
+        <h3>SHACL Form <span class="badge badge-shacl">sh:</span></h3>
+        <p>Parsed from SHACL Turtle — constraints, datatypes, sh:in dropdowns</p>
+      </a>
+    </div>
+
+    <div class="about">
+      <p><strong>Two approaches, same goal:</strong> render an RDF resource as an editable form
+        based on its type. These demos show both the
+        <a href="https://www.w3.org/ns/ui">UI Ontology</a> approach (used by SolidOS) and the
+        <a href="https://www.w3.org/TR/shacl/">SHACL</a> approach.</p>
+      <p>Each demo links a class (e.g. <code>schema:Person</code>) to a form definition. The pane
+        reads the resource's <code>@type</code>, finds the matching form, and renders it.
+        Edits flow back to the data via a LOSOS-style reactive store.</p>
+      <p>Source:
+        <a href="ui-pane.js">ui-pane.js</a> (~230 LOC) ·
+        <a href="shacl-pane.js">shacl-pane.js</a> (~230 LOC)</p>
+    </div>
+
+    <footer>
+      Pane pattern from the <a href="https://losos.org">LOSOS</a> framework ·
+      UI ontology from <a href="https://github.com/solidos">SolidOS</a>
+    </footer>
+  </main>
+</body>
+</html>

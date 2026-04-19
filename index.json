@@ -1,0 +1,58 @@
+{
+  "Article": {
+    "term": "urn:solid:Article",
+    "label": "Article",
+    "description": "A long-form authored piece — a blog post, news article, or essay. More structured than Note.",
+    "parts": 9,
+    "form": "/Article/index.json"
+  },
+  "Document": {
+    "term": "urn:solid:Document",
+    "label": "Document",
+    "description": "A generic document — a self-contained piece of content with a title, body, and metadata. Spans foaf:Document, schema:CreativeWork, and as:Document.",
+    "parts": 8,
+    "form": "/Document/index.json"
+  },
+  "Event": {
+    "term": "urn:solid:Event",
+    "label": "Event",
+    "description": "A scheduled occurrence with a start (and usually end) time. Aligns with as:Event, schema:Event, and ical:Vevent at the term level.",
+    "parts": 7,
+    "form": "/Event/index.json"
+  },
+  "Note": {
+    "term": "urn:solid:Note",
+    "label": "Note",
+    "description": "A short text post — the fediverse-canonical Note.",
+    "parts": 7,
+    "form": "/Note/index.json"
+  },
+  "Person": {
+    "term": "urn:solid:Person",
+    "label": "Person",
+    "description": "A human person — schema for data typed as urn:solid:Person.",
+    "parts": 6,
+    "form": "/Person/index.json"
+  },
+  "Tracker": {
+    "term": "urn:solid:Tracker",
+    "label": "Tracker",
+    "description": "A container for tracking work items — typically a list of iCalendar Vtodos. The list-level counterpart to single-task Vtodo.",
+    "parts": 5,
+    "form": "/Tracker/index.json"
+  },
+  "VerifiableCredential": {
+    "term": "urn:solid:VerifiableCredential",
+    "label": "VerifiableCredential",
+    "description": "A W3C Verifiable Credential — a tamper-evident, cryptographically-signed claim made by an issuer about a subject.",
+    "parts": 8,
+    "form": "/VerifiableCredential/index.json"
+  },
+  "Vtodo": {
+    "term": "urn:solid:Vtodo",
+    "label": "Vtodo",
+    "description": "An iCalendar to-do item — a task with status, priority, and optional due dates. RFC 5545 compatible.",
+    "parts": 9,
+    "form": "/Vtodo/index.json"
+  }
+}

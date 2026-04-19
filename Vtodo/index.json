@@ -1,0 +1,96 @@
+{
+  "targetClass": "urn:solid:Vtodo",
+  "label": "Vtodo",
+  "description": "An iCalendar to-do item — a task with status, priority, and optional due dates. RFC 5545 compatible.",
+  "view": {
+    "heading": "urn:solid:summary",
+    "subheading": "urn:solid:description",
+    "avatar": true
+  },
+  "parts": [
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "summary",
+      "property": "urn:solid:summary",
+      "required": true,
+      "maxLength": 200,
+      "minLength": 1,
+      "description": "The task title — what to do."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "description",
+      "property": "urn:solid:description",
+      "description": "Longer-form description or notes."
+    },
+    {
+      "type": "ui:DateTimeField",
+      "label": "dtstart",
+      "property": "urn:solid:dtstart",
+      "description": "When the task becomes actionable (ISO 8601)."
+    },
+    {
+      "type": "ui:DateTimeField",
+      "label": "due",
+      "property": "urn:solid:due",
+      "description": "Due date-time — the deadline (ISO 8601)."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "duration",
+      "property": "urn:solid:duration",
+      "pattern": "^-?P(?:[0-9]+Y)?(?:[0-9]+M)?(?:[0-9]+D)?(?:T(?:[0-9]+H)?(?:[0-9]+M)?(?:[0-9]+(?:\\.[0-9]+)?S)?)?$",
+      "description": "How long the task is expected to take (xsd:duration, e.g. PT30M)."
+    },
+    {
+      "type": "ui:Choice",
+      "label": "status",
+      "property": "urn:solid:status",
+      "description": "iCalendar Vtodo status enum (RFC 5545).",
+      "options": [
+        {
+          "value": "NEEDS-ACTION",
+          "label": "NEEDS-ACTION"
+        },
+        {
+          "value": "IN-PROCESS",
+          "label": "IN-PROCESS"
+        },
+        {
+          "value": "COMPLETED",
+          "label": "COMPLETED"
+        },
+        {
+          "value": "CANCELLED",
+          "label": "CANCELLED"
+        }
+      ]
+    },
+    {
+      "type": "ui:IntegerField",
+      "label": "priority",
+      "property": "urn:solid:priority",
+      "description": "Priority 0 (undefined) through 9 (lowest); 1 is highest. RFC 5545 §3.8.1.9."
+    },
+    {
+      "type": "ui:DateTimeField",
+      "label": "completed",
+      "property": "urn:solid:completed",
+      "description": "When the task was marked complete (ISO 8601)."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "categories",
+      "property": "urn:solid:categories",
+      "description": "Tags / categories for the task."
+    }
+  ],
+  "x-urn-solid": {
+    "term": "urn:solid:Vtodo",
+    "termRegistry": "https://urn-solid.github.io/Vtodo/",
+    "schemaSource": "https://solid-schema.github.io/Vtodo/index.json",
+    "derivedFrom": "JSON Schema 2020-12",
+    "status": "stable",
+    "added": "2026-04-19"
+  }
+}

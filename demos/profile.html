@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile Card — UI Ontology Demo</title>
+  <link rel="stylesheet" href="demo.css">
+  <style>
+    .hero .edit-btn { display: none; }
+    .hero-hint { position: absolute; top: 1rem; right: 1.25rem;
+      color: #aaa; font-size: .75rem; font-style: italic; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="back" href="../index.html">← all demos</a>
+    <div class="title-row">
+      <img class="logo" src="../assets/solid-emblem.svg" alt="Solid">
+      <h1>Profile Card</h1>
+    </div>
+    <p class="sub">A profile rendered from RDF data + a
+      <a href="https://www.w3.org/ns/ui">UI Ontology</a> form definition.
+      Click any value to edit it in place — autosaves on blur.
+      (TimBL's <a href="https://www.w3.org/DesignIssues/UserInterface.html">DesignIssues</a> style.)</p>
+  </header>
+
+  <div class="hero">
+    <span class="hero-hint">click any value to edit</span>
+    <div id="pane"></div>
+  </div>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3>Form definition</h3>
+      <pre class="code-view" id="source"></pre>
+    </div>
+    <div class="panel">
+      <h3>Live JSON-LD</h3>
+      <pre class="data-view" id="data"></pre>
+    </div>
+  </div>
+
+  <script type="module">
+    import { renderEditable } from '../ui-pane.js'
+
+    const PERSON_FORM = {
+      label: 'Person',
+      targetClass: 'schema:Person',
+      view: { heading: 'schema:name', avatar: true },
+      parts: [
+        { type: 'ui:SingleLineTextField', label: 'Full name',
+          property: 'schema:name', required: true, maxLength: 100 },
+        { type: 'ui:EmailField', label: 'Email',
+          property: 'schema:email' },
+        { type: 'ui:PhoneField', label: 'Phone',
+          property: 'schema:telephone' },
+        { type: 'ui:NamedNodeURIField', label: 'Homepage',
+          property: 'foaf:homepage' },
+        { type: 'ui:DateField', label: 'Born',
+          property: 'schema:birthDate' },
+        { type: 'ui:Choice', label: 'Gender',
+          property: 'schema:gender',
+          options: ['Female', 'Male', 'Other', 'Prefer not to say'] },
+        { type: 'ui:MultiLineTextField', label: 'Bio',
+          property: 'schema:description', rows: 3 },
+        { type: 'ui:BooleanField', label: 'Publicly visible',
+          property: 'schema:isAccessibleForFree' },
+      ]
+    }
+
+    const subject = {
+      '@id': 'https://alice.example.org/profile/card#me',
+      '@type': 'schema:Person',
+      'schema:name': 'Alice Example',
+      'schema:email': 'alice@example.org',
+      'schema:telephone': '+1-555-123-4567',
+      'foaf:homepage': 'https://alice.example.org',
+      'schema:birthDate': '1990-01-15',
+      'schema:description': 'Curious about decentralised data and semantic web things.',
+      'schema:isAccessibleForFree': true,
+    }
+
+    document.getElementById('source').textContent = JSON.stringify(PERSON_FORM, null, 2)
+
+    const pane = document.getElementById('pane')
+    const dataView = document.getElementById('data')
+    const refresh = () => {
+      dataView.textContent = JSON.stringify(subject, null, 2)
+    }
+    refresh()
+
+    const store = new Proxy(subject, {
+      set(t, p, v) {
+        if (v === '' || v == null) delete t[p]
+        else t[p] = v
+        refresh()
+        return true
+      },
+      get(t, p) { return t[p] ?? '' }
+    })
+
+    renderEditable(pane, PERSON_FORM, store)
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "targetClass": "urn:solid:Article",
+  "label": "Article",
+  "description": "A long-form authored piece — a blog post, news article, or essay. More structured than Note.",
+  "view": {
+    "heading": "urn:solid:name",
+    "subheading": "urn:solid:attributedTo",
+    "avatar": {
+      "type": "favicon",
+      "from": "urn:solid:url"
+    }
+  },
+  "parts": [
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "name",
+      "property": "urn:solid:name",
+      "required": true,
+      "minLength": 1,
+      "description": "The Article's title — required for an Article (unlike a Note)."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "content",
+      "property": "urn:solid:content",
+      "required": true,
+      "minLength": 1,
+      "description": "The Article body. Often HTML in fediverse usage."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "summary",
+      "property": "urn:solid:summary",
+      "description": "Short summary or lede."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "mediaType",
+      "property": "urn:solid:mediaType",
+      "description": "MIME type of the content (defaults to text/html in fediverse usage)."
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "attributedTo",
+      "property": "urn:solid:attributedTo"
+    },
+    {
+      "type": "ui:DateTimeField",
+      "label": "published",
+      "property": "urn:solid:published"
+    },
+    {
+      "type": "ui:DateTimeField",
+      "label": "updated",
+      "property": "urn:solid:updated"
+    },
+    {
+      "type": "ui:NamedNodeURIField",
+      "label": "url",
+      "property": "urn:solid:url"
+    },
+    {
+      "type": "ui:SingleLineTextField",
+      "label": "tag",
+      "property": "urn:solid:tag",
+      "description": "Tags, hashtags, or mentions attached to the Article."
+    }
+  ],
+  "x-urn-solid": {
+    "term": "urn:solid:Article",
+    "termRegistry": "https://urn-solid.github.io/Article/",
+    "schemaSource": "https://solid-schema.github.io/Article/index.json",
+    "derivedFrom": "JSON Schema 2020-12",
+    "status": "stable",
+    "added": "2026-04-19"
+  }
+}

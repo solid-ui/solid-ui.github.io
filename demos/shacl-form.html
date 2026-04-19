@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SHACL Form — Pane Demo</title>
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <header>
+    <a class="back" href="../index.html">← all demos</a>
+    <div class="title-row">
+      <img class="logo" src="../assets/solid-emblem.svg" alt="Solid">
+      <h1>SHACL Form</h1>
+    </div>
+    <p class="sub">Form auto-generated from a
+      <a href="https://www.w3.org/TR/shacl/">SHACL</a> shape.
+      Fill it in and hit Save to see the RDF Turtle output.</p>
+  </header>
+
+  <div class="layout">
+    <div class="panel">
+      <h3>SHACL shape (Turtle)</h3>
+      <pre class="code-view" id="source"></pre>
+    </div>
+    <div class="panel">
+      <h3>Rendered</h3>
+      <div id="form"></div>
+    </div>
+    <div class="panel">
+      <h3>Turtle output</h3>
+      <pre class="data-view" id="output"></pre>
+    </div>
+  </div>
+
+  <script type="module">
+    import { parseShapes, renderForm, toTurtle } from '../shacl-pane.js'
+
+    const SHAPE = `@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+
+<#PersonShape> a sh:NodeShape ;
+  sh:targetClass schema:Person ;
+  rdfs:label "Person" ;
+  sh:property [
+    sh:path schema:name ; sh:name "Full Name" ;
+    sh:datatype xsd:string ; sh:minCount 1 ; sh:order 1 ;
+  ] , [
+    sh:path schema:email ; sh:name "Email" ;
+    sh:description "Primary email address" ;
+    sh:datatype xsd:string ; sh:pattern "^[^@]+@[^@]+$" ; sh:order 2 ;
+  ] , [
+    sh:path schema:birthDate ; sh:name "Date of Birth" ;
+    sh:datatype xsd:date ; sh:order 3 ;
+  ] , [
+    sh:path schema:gender ; sh:name "Gender" ;
+    sh:in ( "Female" "Male" "Other" ) ; sh:order 4 ;
+  ] , [
+    sh:path schema:url ; sh:name "Website" ;
+    sh:datatype xsd:anyURI ; sh:order 5 ;
+  ] , [
+    sh:path schema:alumniOf ; sh:name "Active Alumni" ;
+    sh:description "Currently involved with alumni network" ;
+    sh:datatype xsd:boolean ; sh:order 6 ;
+  ] .`
+
+    document.getElementById('source').textContent = SHAPE
+
+    const shape = parseShapes(SHAPE)[0]
+    const out = document.getElementById('output')
+
+    renderForm(document.getElementById('form'), shape, {}, {
+      onSubmit(data) {
+        out.textContent = toTurtle('http://example.org/person/1', shape, data, {
+          'schema': 'https://schema.org/',
+        })
+      }
+    })
+  </script>
+</body>
+</html>

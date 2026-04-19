@@ -1,0 +1,16 @@
+{
+  "name": "@solid-ui/forms",
+  "version": "0.0.1",
+  "description": "Inline-edit LOSOS pane — click a field to edit, blur to save. Form definitions per urn:solid type, auto-derived from solid-schema.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "validate": "node scripts/validate.js"
+  },
+  "license": "AGPL-3.0",
+  "homepage": "https://solid-ui.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/solid-ui/solid-ui.github.io.git"
+  }
+}

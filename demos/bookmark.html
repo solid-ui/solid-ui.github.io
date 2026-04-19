@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookmark — UI Ontology Demo</title>
+  <link rel="stylesheet" href="demo.css">
+  <style>
+    .hero-hint { position: absolute; top: 1rem; right: 1.25rem;
+      color: #aaa; font-size: .75rem; font-style: italic; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="back" href="../index.html">← all demos</a>
+    <div class="title-row">
+      <img class="logo" src="../assets/solid-emblem.svg" alt="Solid">
+      <h1>Bookmark</h1>
+    </div>
+    <p class="sub">Same pane machinery as the profile — only the
+      <a href="https://www.w3.org/ns/ui">UI Ontology</a> form definition and data differ.
+      Click any value to edit it in place.</p>
+  </header>
+
+  <div class="hero">
+    <span class="hero-hint">click any value to edit</span>
+    <div id="pane"></div>
+  </div>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3>Form definition</h3>
+      <pre class="code-view" id="source"></pre>
+    </div>
+    <div class="panel">
+      <h3>Live JSON-LD</h3>
+      <pre class="data-view" id="data"></pre>
+    </div>
+  </div>
+
+  <script type="module">
+    import { renderEditable } from '../ui-pane.js'
+
+    const BOOKMARK_FORM = {
+      label: 'Bookmark',
+      targetClass: 'bookm:Bookmark',
+      view: {
+        heading: 'dc:title',
+        subheading: 'bookm:recalls',
+        avatar: { type: 'favicon', from: 'bookm:recalls' },
+      },
+      parts: [
+        { type: 'ui:SingleLineTextField', label: 'Title',
+          property: 'dc:title', required: true, maxLength: 200 },
+        { type: 'ui:NamedNodeURIField', label: 'URL',
+          property: 'bookm:recalls', required: true },
+        { type: 'ui:MultiLineTextField', label: 'Notes',
+          property: 'dc:description', rows: 3 },
+        { type: 'ui:SingleLineTextField', label: 'Tags',
+          property: 'bookm:hasTopic',
+          placeholder: 'comma-separated' },
+        { type: 'ui:DateField', label: 'Added',
+          property: 'dc:date' },
+        { type: 'ui:Choice', label: 'Visibility',
+          property: 'acl:mode',
+          options: [
+            { value: 'private', label: 'Private' },
+            { value: 'shared',  label: 'Shared with contacts' },
+            { value: 'public',  label: 'Public' },
+          ]
+        },
+        { type: 'ui:BooleanField', label: 'Favourite',
+          property: 'schema:isStarred' },
+      ]
+    }
+
+    const subject = {
+      '@id': 'https://alice.example.org/bookmarks/1',
+      '@type': 'bookm:Bookmark',
+      'dc:title': 'Solid Project',
+      'bookm:recalls': 'https://solidproject.org',
+      'dc:description': 'Re-decentralising the web. Specs, pods, apps.',
+      'bookm:hasTopic': 'solid, decentralisation, web',
+      'dc:date': '2026-04-17',
+      'acl:mode': 'public',
+      'schema:isStarred': true,
+    }
+
+    document.getElementById('source').textContent = JSON.stringify(BOOKMARK_FORM, null, 2)
+
+    const dataView = document.getElementById('data')
+    const refresh = () => { dataView.textContent = JSON.stringify(subject, null, 2) }
+    refresh()
+
+    const store = new Proxy(subject, {
+      set(t, p, v) {
+        if (v === '' || v == null) delete t[p]
+        else t[p] = v
+        refresh()
+        return true
+      },
+      get(t, p) { return t[p] ?? '' }
+    })
+
+    renderEditable(document.getElementById('pane'), BOOKMARK_FORM, store)
+  </script>
+</body>
+</html>

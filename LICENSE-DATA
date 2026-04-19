@@ -1,0 +1,37 @@
+DATA LICENSE — CC BY 4.0 (Creative Commons Attribution 4.0 International)
+==========================================================================
+
+The form-definition data files in this repository are licensed under
+the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+You are free to share and adapt the material for any purpose, including
+commercially, provided you give appropriate credit and indicate any
+changes.
+
+Suggested attribution: "solid-ui forms, https://solid-ui.github.io/,
+licensed under CC BY 4.0."
+
+Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+What this covers
+----------------
+
+CC BY 4.0 applies to the auto-derived form definitions:
+
+  - <Name>/index.json           — each type's form definition (JSON)
+  - corpus.jsonl                — every form, one per line
+  - index.json                  — name → form URL
+  - reverse-index.json          — urn:solid type → form URL
+
+What this does NOT cover
+------------------------
+
+Pane code and build scripts remain licensed under AGPL-3.0 (see LICENSE):
+
+  - ui-pane.js                  — the inline-edit pane (the interesting bit)
+  - shacl-pane.js               — the SHACL explicit-submit alternate
+  - scripts/*.js                — build + validate pipeline
+  - index.html, demos/*         — the demo hub and example pages
+
+The split mirrors solid-shapes: the *form definitions* are data
+(reusable contracts describing how to render a type), the *renderer*
+is code.
