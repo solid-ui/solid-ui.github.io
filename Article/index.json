@@ -69,7 +69,7 @@
   "x-urn-solid": {
     "term": "urn:solid:Article",
     "termRegistry": "https://urn-solid.github.io/Article/",
-    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/Article/index.json",
+    "schemaSource": "https://solid-schema.github.io/Article/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"

@@ -62,7 +62,7 @@
   "x-urn-solid": {
     "term": "urn:solid:Tracker",
     "termRegistry": "https://urn-solid.github.io/Tracker/",
-    "schemaSource": "http://127.0.0.1:4754/solid-schema/solid-schema.github.io/Tracker/index.json",
+    "schemaSource": "https://solid-schema.github.io/Tracker/index.json",
     "derivedFrom": "JSON Schema 2020-12",
     "status": "stable",
     "added": "2026-04-19"
